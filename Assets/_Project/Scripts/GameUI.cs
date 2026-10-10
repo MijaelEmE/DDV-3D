@@ -7,9 +7,6 @@ public class GameUI : MonoBehaviour
     [SerializeField] private Text healthText;
     [SerializeField] private Text objectiveText;
     [SerializeField] private Image healthBar;
-    [SerializeField] private Image portalIndicator;
-    [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color completedColor = Color.green;
 
     private PlayerInventory inventory;
     private PlayerHealth playerHealth;
@@ -22,34 +19,50 @@ public class GameUI : MonoBehaviour
         objectiveManager = FindObjectOfType<ObjectiveManager>();
 
         if (inventory != null)
+        {
             inventory.onItemCollected += UpdateItemCount;
+            Debug.Log("GameUI: Conectado a PlayerInventory");
+        }
+        else
+            Debug.LogError("GameUI: PlayerInventory no encontrado");
 
         if (playerHealth != null)
-            playerHealth.onHealthChanged += UpdateHealth;
-
-        if (objectiveManager != null)
         {
-            UpdateObjectiveText();
+            playerHealth.onHealthChanged += UpdateHealth;
+            Debug.Log("GameUI: Conectado a PlayerHealth");
         }
+        else
+            Debug.LogError("GameUI: PlayerHealth no encontrado");
 
         UpdateItemCount(0);
-        UpdateHealth(playerHealth != null ? playerHealth.GetHealth() : 0);
+        UpdateHealth(playerHealth != null ? playerHealth.GetHealth() : 3);
+        UpdateObjectiveText();
     }
 
     private void UpdateItemCount(int count)
     {
-        if (itemCountText != null)
+        if (itemCountText == null)
         {
-            int maxItems = inventory != null ? inventory.GetMaxItems() : 3;
-            itemCountText.text = $"Items: {count}/{maxItems}";
-            itemCountText.color = (count == maxItems) ? completedColor : normalColor;
+            Debug.LogError("itemCountText no asignado en GameUI");
+            return;
         }
+
+        int maxItems = inventory != null ? inventory.GetMaxItems() : 3;
+        itemCountText.text = $"Items: {count}/{maxItems}";
+        itemCountText.color = (count == maxItems) ? Color.green : Color.white;
+
+        Debug.Log($"UI Actualizado: Items {count}/{maxItems}");
     }
 
     private void UpdateHealth(int health)
     {
         if (healthText != null)
+        {
             healthText.text = $"Vidas: {health}";
+            Debug.Log($"UI Actualizado: Vidas {health}");
+        }
+        else
+            Debug.LogError("healthText no asignado");
 
         if (healthBar != null && playerHealth != null)
         {
@@ -68,14 +81,8 @@ public class GameUI : MonoBehaviour
     private void UpdateObjectiveText()
     {
         if (objectiveText != null && objectiveManager != null)
-            objectiveText.text = objectiveManager.GetObjectiveText();
-    }
-
-    private void Update()
-    {
-        if (portalIndicator != null && objectiveManager != null)
         {
-            portalIndicator.enabled = objectiveManager.IsPortalActive();
+            objectiveText.text = objectiveManager.GetObjectiveText();
         }
     }
 }
