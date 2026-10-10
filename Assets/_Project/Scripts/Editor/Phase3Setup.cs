@@ -64,8 +64,11 @@ public class Phase3Setup
         CreateVictoryPanel(canvasObj);
         CreateDefeatPanel(canvasObj);
 
-        canvasObj.AddComponent<GameUI>();
-        canvasObj.AddComponent<GameOverUI>();
+        GameUI gameUI = canvasObj.AddComponent<GameUI>();
+        AssignGameUIReferences(canvasObj, gameUI);
+
+        GameOverUI gameOverUI = canvasObj.AddComponent<GameOverUI>();
+        AssignGameOverUIReferences(canvasObj, gameOverUI);
 
         Debug.Log("Canvas y UI creados");
     }
@@ -152,5 +155,48 @@ public class Phase3Setup
         rect.sizeDelta = new Vector2(200, 60);
 
         CreateSimpleText(buttonObj, "Text", text, 0, 0, 28);
+    }
+
+    private static void AssignGameUIReferences(GameObject canvas, GameUI gameUI)
+    {
+        Transform hudTransform = canvas.transform.Find("HUD");
+        if (hudTransform == null) return;
+
+        SerializedObject so = new SerializedObject(gameUI);
+
+        Text itemCount = hudTransform.Find("ItemCount")?.GetComponent<Text>();
+        if (itemCount != null)
+            so.FindProperty("itemCountText").objectReferenceValue = itemCount;
+
+        Text health = hudTransform.Find("Health")?.GetComponent<Text>();
+        if (health != null)
+            so.FindProperty("healthText").objectReferenceValue = health;
+
+        Text objective = hudTransform.Find("Objective")?.GetComponent<Text>();
+        if (objective != null)
+            so.FindProperty("objectiveText").objectReferenceValue = objective;
+
+        so.ApplyModifiedProperties();
+        Debug.Log("GameUI referencias asignadas");
+    }
+
+    private static void AssignGameOverUIReferences(GameObject canvas, GameOverUI gameOverUI)
+    {
+        SerializedObject so = new SerializedObject(gameOverUI);
+
+        GameObject victory = canvas.transform.Find("VictoryPanel")?.gameObject;
+        if (victory != null)
+            so.FindProperty("victoryPanel").objectReferenceValue = victory;
+
+        GameObject defeat = canvas.transform.Find("DefeatPanel")?.gameObject;
+        if (defeat != null)
+            so.FindProperty("defeatPanel").objectReferenceValue = defeat;
+
+        Button restartButton = canvas.transform.Find("VictoryPanel/RestartButton")?.GetComponent<Button>();
+        if (restartButton != null)
+            so.FindProperty("restartButton").objectReferenceValue = restartButton;
+
+        so.ApplyModifiedProperties();
+        Debug.Log("GameOverUI referencias asignadas");
     }
 }
