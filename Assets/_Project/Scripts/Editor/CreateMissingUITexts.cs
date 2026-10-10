@@ -16,40 +16,55 @@ public class CreateMissingUITexts
             return;
         }
 
-        // Buscar si ItemCount existe
+        // ABAJO A LA IZQUIERDA: Items
         Transform itemCountTrans = canvas.transform.Find("ItemCount");
         if (itemCountTrans == null)
         {
-            Debug.LogWarning("ItemCount no encontrado, creando...");
-            CreateText(canvas, "ItemCount", "Items: 0/3", 20, -20);
+            CreateText(canvas, "ItemCount", "Items: 0/3", -100, -50, TextAnchor.LowerLeft);
         }
         else
-            Debug.Log("✓ ItemCount ya existe");
+        {
+            RectTransform rect = itemCountTrans.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(-100, -50);
+            Text txt = itemCountTrans.GetComponent<Text>();
+            txt.alignment = TextAnchor.LowerLeft;
+            Debug.Log("✓ ItemCount reposicionado (abajo izquierda)");
+        }
 
-        // Buscar si Health existe
+        // ABAJO A LA DERECHA: Vidas
         Transform healthTrans = canvas.transform.Find("Health");
         if (healthTrans == null)
         {
-            Debug.Log("Creando Health...");
-            CreateText(canvas, "Health", "Vidas: 3", 20, -50);
+            CreateText(canvas, "Health", "Vidas: 3", 100, -50, TextAnchor.LowerRight);
         }
         else
-            Debug.Log("✓ Health ya existe");
+        {
+            RectTransform rect = healthTrans.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(100, -50);
+            Text txt = healthTrans.GetComponent<Text>();
+            txt.alignment = TextAnchor.LowerRight;
+            Debug.Log("✓ Health reposicionado (abajo derecha)");
+        }
 
-        // Buscar si Objective existe
+        // ARRIBA EN EL CENTRO: Objetivo
         Transform objectiveTrans = canvas.transform.Find("Objective");
         if (objectiveTrans == null)
         {
-            Debug.Log("Creando Objective...");
-            CreateText(canvas, "Objective", "Encuentra 3 objetos", 20, -80);
+            CreateText(canvas, "Objective", "Encuentra 3 objetos", 0, 50, TextAnchor.UpperCenter);
         }
         else
-            Debug.Log("✓ Objective ya existe");
+        {
+            RectTransform rect = objectiveTrans.GetComponent<RectTransform>();
+            rect.anchoredPosition = new Vector2(0, 50);
+            Text txt = objectiveTrans.GetComponent<Text>();
+            txt.alignment = TextAnchor.UpperCenter;
+            Debug.Log("✓ Objective reposicionado (arriba centro)");
+        }
 
-        Debug.Log("✓ Texts completados!");
+        Debug.Log("✓ Texts posicionados correctamente!");
     }
 
-    private static void CreateText(Canvas canvas, string name, string text, float x, float y)
+    private static void CreateText(Canvas canvas, string name, string text, float x, float y, TextAnchor alignment)
     {
         GameObject textObj = new GameObject(name);
         textObj.transform.SetParent(canvas.transform);
@@ -60,7 +75,7 @@ public class CreateMissingUITexts
         txt.fontSize = 30;
         txt.fontStyle = FontStyle.Normal;
         txt.color = Color.white;
-        txt.alignment = TextAnchor.MiddleCenter;
+        txt.alignment = alignment;
 
         RectTransform rect = textObj.GetComponent<RectTransform>();
         rect.anchoredPosition = new Vector2(x, y);
