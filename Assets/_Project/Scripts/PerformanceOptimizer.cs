@@ -27,8 +27,7 @@ public class PerformanceOptimizer : MonoBehaviour
         {
             GUI.Label(new Rect(10, 10, 300, 100),
                 $"FPS: {(1f / Time.deltaTime):F0}\n" +
-                $"Memory: {System.GC.GetTotalMemory(false) / 1048576}MB\n" +
-                $"Batches: {UnityStats.batches}");
+                $"Memory: {System.GC.GetTotalMemory(false) / 1048576}MB");
         }
     }
 }
