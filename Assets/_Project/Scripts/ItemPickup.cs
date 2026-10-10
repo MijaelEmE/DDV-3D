@@ -12,7 +12,7 @@ public class ItemPickup : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<PlayerInventory>();
+        inventory = FindFirstObjectByType<PlayerInventory>();
         if (inventory == null)
             Debug.LogError("PlayerInventory no encontrado");
     }

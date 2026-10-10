@@ -14,7 +14,7 @@ public class ObjectiveManager : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<PlayerInventory>();
+        inventory = FindFirstObjectByType<PlayerInventory>();
 
         if (inventory != null)
             inventory.onItemCollected += CheckObjective;

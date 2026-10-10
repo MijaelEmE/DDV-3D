@@ -79,8 +79,8 @@ public class Phase2Setup
         Rigidbody rb = guardian.GetComponent<Rigidbody>();
         if (rb == null) rb = guardian.AddComponent<Rigidbody>();
         rb.mass = 2f;
-        rb.drag = 2f;
-        rb.angularDrag = 0.5f;
+        rb.linearDamping = 2f;
+        rb.angularDamping = 0.5f;
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
         guardian.AddComponent<AIStateMachine>();
@@ -123,7 +123,7 @@ public class Phase2Setup
         {
             Rigidbody rb = player.AddComponent<Rigidbody>();
             rb.mass = 1f;
-            rb.drag = 5f;
+            rb.linearDamping = 5f;
         }
 
         Debug.Log("PlayerHealth agregado");

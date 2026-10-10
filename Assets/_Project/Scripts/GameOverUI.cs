@@ -13,7 +13,7 @@ public class GameOverUI : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
 
         if (gameManager != null)
             gameManager.onGameStateChanged += OnGameStateChanged;

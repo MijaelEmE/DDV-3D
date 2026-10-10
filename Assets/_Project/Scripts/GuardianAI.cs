@@ -63,9 +63,9 @@ public class GuardianAI : MonoBehaviour
         float targetVelX = direction.x * speed;
         float targetVelZ = direction.z * speed;
 
-        rb.velocity = Vector3.Lerp(
-            rb.velocity,
-            new Vector3(targetVelX, rb.velocity.y, targetVelZ),
+        rb.linearVelocity = Vector3.Lerp(
+            rb.linearVelocity,
+            new Vector3(targetVelX, rb.linearVelocity.y, targetVelZ),
             Time.deltaTime * 3f
         );
 

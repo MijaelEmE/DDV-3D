@@ -20,12 +20,12 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
         rb = GetComponent<Rigidbody>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
 
         if (rb != null)
         {
-            rb.drag = 0.5f;
-            rb.angularDrag = 0.05f;
+            rb.linearDamping = 0.5f;
+            rb.angularDamping = 0.05f;
         }
     }
 
@@ -62,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
         if (rb != null)
         {
             Vector3 direction = (transform.position - sourcePosition).normalized;
-            rb.velocity = direction * knockbackForce;
+            rb.linearVelocity = direction * knockbackForce;
             knockbackTimer = knockbackDuration;
         }
     }

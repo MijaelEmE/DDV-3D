@@ -14,9 +14,9 @@ public class GameUI : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<PlayerInventory>();
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        objectiveManager = FindObjectOfType<ObjectiveManager>();
+        inventory = FindFirstObjectByType<PlayerInventory>();
+        playerHealth = FindFirstObjectByType<PlayerHealth>();
+        objectiveManager = FindFirstObjectByType<ObjectiveManager>();
 
         if (inventory != null)
         {

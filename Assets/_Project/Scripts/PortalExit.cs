@@ -9,7 +9,7 @@ public class PortalExit : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)

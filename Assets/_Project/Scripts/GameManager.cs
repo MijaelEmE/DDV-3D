@@ -27,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<PlayerInventory>();
-        objectiveManager = FindObjectOfType<ObjectiveManager>();
+        inventory = FindFirstObjectByType<PlayerInventory>();
+        objectiveManager = FindFirstObjectByType<ObjectiveManager>();
 
         StartGame();
     }
