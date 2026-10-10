@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CreateMissingUITexts
 {
-    [MenuItem("Doctocliq/Fix - Crear Texts Faltantes")]
+    [MenuItem("GAMEDEV/2 - Crear Texts Faltantes")]
     public static void CreateMissingTexts()
     {
         Debug.Log("Creando texts faltantes...");

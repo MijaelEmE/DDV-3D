@@ -3,7 +3,7 @@ using UnityEditor;
 
 public class ImproveGuardianVisuals
 {
-    [MenuItem("Doctocliq/Visual - Mejorar Guardian")]
+    [MenuItem("GAMEDEV/4 - Mejorar Guardian")]
     public static void ImproveGuardian()
     {
         Debug.Log("Mejorando visual del Guardian...");

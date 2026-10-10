@@ -5,7 +5,7 @@ using UnityEditor.SceneManagement;
 
 public class UIDebuggerSetup
 {
-    [MenuItem("Doctocliq/Debug - Verificar UI")]
+    [MenuItem("GAMEDEV/Debug - Verificar UI")]
     public static void SetupUIDebugger()
     {
         Debug.Log("=== VERIFICACION DE UI ===\n");

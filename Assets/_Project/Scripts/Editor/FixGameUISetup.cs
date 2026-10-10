@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class FixGameUISetup
 {
-    [MenuItem("Doctocliq/Fix - Agregar GameUI al Canvas")]
+    [MenuItem("GAMEDEV/3 - Agregar GameUI al Canvas")]
     public static void FixGameUI()
     {
         Debug.Log("Agregando GameUI al Canvas...");

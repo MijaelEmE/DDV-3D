@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CleanDuplicateUITexts
 {
-    [MenuItem("Doctocliq/Fix - Limpiar UI Duplicados")]
+    [MenuItem("GAMEDEV/1 - Limpiar UI Duplicados")]
     public static void CleanDuplicates()
     {
         Debug.Log("Limpiando duplicados de UI...");
