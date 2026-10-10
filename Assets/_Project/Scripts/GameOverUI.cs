@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private GameObject defeatPanel;
     [SerializeField] private Button restartButton;
-    [SerializeField] private TextMeshProUGUI victoryText;
-    [SerializeField] private TextMeshProUGUI defeatText;
+    [SerializeField] private Text victoryText;
+    [SerializeField] private Text defeatText;
 
     private GameManager gameManager;
 

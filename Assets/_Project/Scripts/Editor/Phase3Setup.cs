@@ -48,6 +48,9 @@ public class Phase3Setup
         Canvas canvas = canvasObj.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
+        CanvasScaler scaler = canvasObj.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+
         GraphicRaycaster raycaster = canvasObj.AddComponent<GraphicRaycaster>();
 
         RectTransform canvasRect = canvasObj.GetComponent<RectTransform>();
@@ -56,21 +59,9 @@ public class Phase3Setup
         canvasRect.offsetMin = Vector2.zero;
         canvasRect.offsetMax = Vector2.zero;
 
-        // HUD Panel
-        GameObject hudObj = CreatePanel(canvasObj, "HUD", new Color(0, 0, 0, 0));
-        CreateText(hudObj, "ItemCount", "Items: 0/3", Vector2.up, new Vector2(-100, -20));
-        CreateText(hudObj, "Health", "Vidas: 3", Vector2.up, new Vector2(-100, -50));
-        CreateText(hudObj, "Objective", "Encuentra 3 objetos", Vector2.up, new Vector2(-100, -80));
-
-        // Victory Panel
-        GameObject victoryObj = CreatePanel(canvasObj, "VictoryPanel", new Color(0, 0, 0, 0.8f));
-        CreateText(victoryObj, "VictoryText", "VICTORIA!\nEscapaste del templo", Vector2.zero, Vector2.zero, 60);
-        CreateButton(victoryObj, "RestartButton", "Reintentar", Vector2.zero, new Vector2(0, -80));
-
-        // Defeat Panel
-        GameObject defeatObj = CreatePanel(canvasObj, "DefeatPanel", new Color(0, 0, 0, 0.8f));
-        CreateText(defeatObj, "DefeatText", "DERROTA!\nEl guardian te capturo", Vector2.zero, Vector2.zero, 60);
-        CreateButton(defeatObj, "RestartButton", "Reintentar", Vector2.zero, new Vector2(0, -80));
+        CreateHUDPanel(canvasObj);
+        CreateVictoryPanel(canvasObj);
+        CreateDefeatPanel(canvasObj);
 
         canvasObj.AddComponent<GameUI>();
         canvasObj.AddComponent<GameOverUI>();
@@ -78,40 +69,73 @@ public class Phase3Setup
         Debug.Log("Canvas y UI creados");
     }
 
-    private static GameObject CreatePanel(GameObject parent, string name, Color color)
+    private static void CreateHUDPanel(GameObject canvas)
     {
-        GameObject panelObj = new GameObject(name);
-        panelObj.transform.SetParent(parent.transform);
+        GameObject hudObj = new GameObject("HUD");
+        hudObj.transform.SetParent(canvas.transform);
+        RectTransform hudRect = hudObj.AddComponent<RectTransform>();
+        hudRect.anchoredPosition = Vector2.zero;
 
-        Image image = panelObj.AddComponent<Image>();
-        image.color = color;
+        CreateSimpleText(hudObj, "ItemCount", "Items: 0/3", 20, -20);
+        CreateSimpleText(hudObj, "Health", "Vidas: 3", 20, -50);
+        CreateSimpleText(hudObj, "Objective", "Encuentra 3 objetos", 20, -80);
+    }
 
-        RectTransform rect = panelObj.GetComponent<RectTransform>();
+    private static void CreateVictoryPanel(GameObject canvas)
+    {
+        GameObject panel = new GameObject("VictoryPanel");
+        panel.transform.SetParent(canvas.transform);
+
+        Image image = panel.AddComponent<Image>();
+        image.color = new Color(0, 0, 0, 0.7f);
+
+        RectTransform rect = panel.GetComponent<RectTransform>();
         rect.anchorMin = Vector2.zero;
         rect.anchorMax = Vector2.one;
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
 
-        return panelObj;
+        CreateSimpleText(panel, "Text", "VICTORIA!\nEscapaste!", 0, 50, 40);
+        CreateSimpleButton(panel, "RestartButton", "Reintentar", 0, -80);
     }
 
-    private static void CreateText(GameObject parent, string name, string text, Vector2 anchor, Vector2 pos, int fontSize = 30)
+    private static void CreateDefeatPanel(GameObject canvas)
+    {
+        GameObject panel = new GameObject("DefeatPanel");
+        panel.transform.SetParent(canvas.transform);
+
+        Image image = panel.AddComponent<Image>();
+        image.color = new Color(0, 0, 0, 0.7f);
+
+        RectTransform rect = panel.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        CreateSimpleText(panel, "Text", "DERROTA!\nEl guardian gano", 0, 50, 40);
+        CreateSimpleButton(panel, "RestartButton", "Reintentar", 0, -80);
+    }
+
+    private static void CreateSimpleText(GameObject parent, string name, string text, float x, float y, int fontSize = 30)
     {
         GameObject textObj = new GameObject(name);
         textObj.transform.SetParent(parent.transform);
 
-        TextMeshProUGUI tmp = textObj.AddComponent<TextMeshProUGUI>();
-        tmp.text = text;
-        tmp.fontSize = fontSize;
-        tmp.color = Color.white;
-        tmp.alignment = TextAlignmentOptions.TopLeft;
+        Text txt = textObj.AddComponent<Text>();
+        txt.text = text;
+        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.fontSize = fontSize;
+        txt.fontStyle = FontStyle.Normal;
+        txt.color = Color.white;
+        txt.alignment = TextAnchor.MiddleCenter;
 
         RectTransform rect = textObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = pos;
-        rect.sizeDelta = new Vector2(300, 100);
+        rect.anchoredPosition = new Vector2(x, y);
+        rect.sizeDelta = new Vector2(400, 100);
     }
 
-    private static void CreateButton(GameObject parent, string name, string buttonText, Vector2 anchor, Vector2 pos)
+    private static void CreateSimpleButton(GameObject parent, string name, string text, float x, float y)
     {
         GameObject buttonObj = new GameObject(name);
         buttonObj.transform.SetParent(parent.transform);
@@ -120,24 +144,12 @@ public class Phase3Setup
         image.color = new Color(0.2f, 0.6f, 1f);
 
         Button button = buttonObj.AddComponent<Button>();
+        button.targetGraphic = image;
 
         RectTransform rect = buttonObj.GetComponent<RectTransform>();
-        rect.anchoredPosition = pos;
+        rect.anchoredPosition = new Vector2(x, y);
         rect.sizeDelta = new Vector2(200, 60);
 
-        GameObject textChild = new GameObject("Text");
-        textChild.transform.SetParent(buttonObj.transform);
-
-        TextMeshProUGUI tmp = textChild.AddComponent<TextMeshProUGUI>();
-        tmp.text = buttonText;
-        tmp.fontSize = 36;
-        tmp.color = Color.white;
-        tmp.alignment = TextAlignmentOptions.Center;
-
-        RectTransform textRect = textChild.GetComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
-        textRect.anchorMax = Vector2.one;
-        textRect.offsetMin = Vector2.zero;
-        textRect.offsetMax = Vector2.zero;
+        CreateSimpleText(buttonObj, "Text", text, 0, 0, 28);
     }
 }

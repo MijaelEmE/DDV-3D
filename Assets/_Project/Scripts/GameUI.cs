@@ -1,12 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class GameUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI itemCountText;
-    [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private TextMeshProUGUI objectiveText;
+    [SerializeField] private Text itemCountText;
+    [SerializeField] private Text healthText;
+    [SerializeField] private Text objectiveText;
     [SerializeField] private Image healthBar;
     [SerializeField] private Image portalIndicator;
     [SerializeField] private Color normalColor = Color.white;
@@ -77,8 +76,6 @@ public class GameUI : MonoBehaviour
         if (portalIndicator != null && objectiveManager != null)
         {
             portalIndicator.enabled = objectiveManager.IsPortalActive();
-            if (portalIndicator.enabled)
-                portalIndicator.text = "Portal Abierto!";
         }
     }
 }
