@@ -120,8 +120,8 @@ public class Phase1Setup
         // Configurar ObjectiveManager
         var so = new SerializedObject(objective);
         so.FindProperty("portalObject").objectReferenceValue = portal;
-        var portalLight = portal.GetComponent<Light>();
-        so.FindProperty("portalLight").objectReferenceValue = portalLight;
+        Light portalLightComponent = portal.GetComponent<Light>();
+        so.FindProperty("portalLight").objectReferenceValue = portalLightComponent;
         so.FindProperty("objectiveText").stringValue = "Encuentra 3 objetos antiguos";
         so.ApplyModifiedProperties();
 
