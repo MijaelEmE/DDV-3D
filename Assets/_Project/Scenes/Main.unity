@@ -10609,6 +10609,7 @@ MonoBehaviour:
   maxHealth: 3
   knockbackForce: 5
   knockbackDuration: 0.5
+  damageCooldown: 1.5
   damageSound: {fileID: 0}
 --- !u!1 &9012345678901234501
 GameObject:

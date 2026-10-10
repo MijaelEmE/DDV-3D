@@ -54,7 +54,6 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         SetGameState(GameState.Victory);
-        Time.timeScale = 0f;
 
         if (victoryPanel != null)
             victoryPanel.SetActive(true);
@@ -62,13 +61,14 @@ public class GameManager : MonoBehaviour
         if (victorySound != null)
             AudioSource.PlayClipAtPoint(victorySound, Vector3.zero);
 
-        Debug.Log("¡VICTORIA! ¡Escapaste del templo!");
+        Debug.Log("VICTORIA! Escapaste del templo!");
+
+        Invoke(nameof(RestartGame), 5f);
     }
 
     public void Defeat()
     {
         SetGameState(GameState.Defeat);
-        Time.timeScale = 0f;
 
         if (defeatPanel != null)
             defeatPanel.SetActive(true);
@@ -76,7 +76,9 @@ public class GameManager : MonoBehaviour
         if (defeatSound != null)
             AudioSource.PlayClipAtPoint(defeatSound, Vector3.zero);
 
-        Debug.Log("¡DERROTA! El guardián te capturó.");
+        Debug.Log("DERROTA! El guardian te capturo.");
+
+        Invoke(nameof(RestartGame), 5f);
     }
 
     public void RestartGame()
