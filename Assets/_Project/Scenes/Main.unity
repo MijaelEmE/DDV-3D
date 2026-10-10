@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Item
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 2d2ad97a5e86843a8a0b20d4861cbacb, type: 3}
   destroyDelay: 0.5
 --- !u!23 &102594503
 MeshRenderer:
@@ -5612,7 +5612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portalObject: {fileID: 0}
   portalLight: {fileID: 0}
-  portalActivationSound: {fileID: 0}
+  portalActivationSound: {fileID: 8300000, guid: 99674df7224df42d3a84bc5041cbcfc4, type: 3}
   objectiveText: Encuentra 3 objetos antiguos
 --- !u!4 &392120579
 Transform:
@@ -5809,7 +5809,7 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4459864851551516607, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
   m_PrefabInstance: {fileID: 8934027461789234567}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &506794967
+--- !u!114 &506794970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5971,7 +5971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: -20}
+  m_AnchoredPosition: {x: -100, y: -50}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &612578779
@@ -6001,7 +6001,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -6883,7 +6883,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: -50}
+  m_AnchoredPosition: {x: 100, y: -50}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &975567195
@@ -6913,7 +6913,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 8
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -6966,7 +6966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Item
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 2d2ad97a5e86843a8a0b20d4861cbacb, type: 3}
   destroyDelay: 0.5
 --- !u!23 &1029500991
 MeshRenderer:
@@ -7202,8 +7202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   victoryPanel: {fileID: 0}
   defeatPanel: {fileID: 0}
-  victorySound: {fileID: 0}
-  defeatSound: {fileID: 0}
+  victorySound: {fileID: 8300000, guid: 99674df7224df42d3a84bc5041cbcfc4, type: 3}
+  defeatSound: {fileID: 8300000, guid: 1c1545c8ab0e448d5a3f19b23dabe4eb, type: 3}
 --- !u!4 &1108282484
 Transform:
   m_ObjectHideFlags: 0
@@ -7366,7 +7366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: -80}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1133519950
@@ -7396,7 +7396,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -8179,7 +8179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed452dd6fd4742d787719a2ba226159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: a68b99c2830e2475a9e47d278734643c, type: 3}
   musicVolume: 0.5
   sfxVolume: 0.7
 --- !u!4 &1410020142
@@ -9028,8 +9028,8 @@ MonoBehaviour:
   attackCooldown: 1
   patrolPath: {fileID: 1191844376}
   playerTag: Player
-  alertSound: {fileID: 0}
-  attackSound: {fileID: 0}
+  alertSound: {fileID: 8300000, guid: 774b0167d868b43bda6b031644389624, type: 3}
+  attackSound: {fileID: 8300000, guid: 470ea0dffd76242ff962a3ee91cac2fd, type: 3}
 --- !u!114 &1725476742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10738,7 +10738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Item
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: 8300000, guid: 2d2ad97a5e86843a8a0b20d4861cbacb, type: 3}
   destroyDelay: 0.5
 --- !u!23 &2071738119
 MeshRenderer:
@@ -11177,7 +11177,7 @@ PrefabInstance:
       addedObject: {fileID: 1200946529}
     - targetCorrespondingSourceObject: {fileID: 4459864851551516604, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 506794967}
+      addedObject: {fileID: 506794970}
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!4 &8934027461789234568 stripped
 Transform:
@@ -11200,7 +11200,7 @@ MonoBehaviour:
   knockbackForce: 5
   knockbackDuration: 0.5
   damageCooldown: 1.5
-  damageSound: {fileID: 0}
+  damageSound: {fileID: 8300000, guid: d2f8a9f5ec4394bffbec18bfe8aa9b00, type: 3}
 --- !u!1 &9012345678901234501
 GameObject:
   m_ObjectHideFlags: 0
