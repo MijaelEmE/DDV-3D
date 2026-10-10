@@ -59,10 +59,22 @@ public class GuardianAI : MonoBehaviour
     public void MoveTowards(Vector3 targetPosition, float speed)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
-        rb.velocity = new Vector3(direction.x * speed, rb.velocity.y, direction.z * speed);
+
+        float targetVelX = direction.x * speed;
+        float targetVelZ = direction.z * speed;
+
+        rb.velocity = Vector3.Lerp(
+            rb.velocity,
+            new Vector3(targetVelX, rb.velocity.y, targetVelZ),
+            Time.deltaTime * 3f
+        );
 
         if (direction != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(
+                transform.rotation,
+                Quaternion.LookRotation(direction),
+                Time.deltaTime * 5f
+            );
     }
 
     public void PlayAlertSound()
