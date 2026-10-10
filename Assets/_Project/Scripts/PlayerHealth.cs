@@ -17,17 +17,20 @@ public class PlayerHealth : MonoBehaviour
     public System.Action<int> onHealthChanged;
 
     private void Start()
-    {
-        currentHealth = maxHealth;
-        rb = GetComponent<Rigidbody>();
-        gameManager = FindFirstObjectByType<GameManager>();
-
-        if (rb != null)
         {
-            rb.linearDamping = 0.5f;
-            rb.angularDamping = 0.05f;
+            currentHealth = maxHealth;
+            rb = GetComponent<Rigidbody>();
+            gameManager = FindFirstObjectByType<GameManager>();
+
+            if (rb != null)
+            {
+                rb.linearDamping = 0.5f;
+                rb.angularDamping = 0.05f;
+            }
+
+            // AGREGA ESTA LÍNEA AQUÍ PARA QUE SE ACTUALICE EL TEXTO DESDE EL INICIO:
+            onHealthChanged?.Invoke(currentHealth);
         }
-    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -43,7 +46,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 sourcePosition)
     {
+        if (currentHealth <= 0) return;
+
         currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
+
         onHealthChanged?.Invoke(currentHealth);
 
         if (damageSound != null)

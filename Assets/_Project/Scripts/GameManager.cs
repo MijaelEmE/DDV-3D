@@ -78,7 +78,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("DERROTA! El guardian te capturo.");
 
-        Invoke(nameof(RestartGame), 5f);
+        // Cambia 5f por el tiempo deseado en segundos (ej. 1.5f)
+        Invoke(nameof(RestartGame), 1.5f); 
     }
 
     public void RestartGame()
