@@ -125,7 +125,7 @@ public class Phase3Setup
 
         Text txt = textObj.AddComponent<Text>();
         txt.text = text;
-        txt.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        txt.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         txt.fontSize = fontSize;
         txt.fontStyle = FontStyle.Normal;
         txt.color = Color.white;
