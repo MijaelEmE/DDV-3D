@@ -31,18 +31,34 @@ public class FixGameUISetup
         GameUI gameUI = canvas.gameObject.AddComponent<GameUI>();
         Debug.Log("GameUI agregado al Canvas");
 
-        // Buscar los Text components en el Canvas
-        Transform hudTransform = canvas.transform.Find("HUD");
-        if (hudTransform == null)
+        // Buscar los Text components en el Canvas (pueden estar en cualquier nivel)
+        Text[] allTexts = canvas.GetComponentsInChildren<Text>();
+        Debug.Log($"Encontrados {allTexts.Length} Text components");
+
+        Text itemCountText = null;
+        Text healthText = null;
+        Text objectiveText = null;
+
+        // Buscar por nombre de GameObject
+        foreach (Text text in allTexts)
         {
-            Debug.LogError("HUD panel no encontrado en Canvas!");
-            return;
+            Debug.Log($"  Encontrado: {text.gameObject.name} = '{text.text}'");
+
+            if (text.gameObject.name.Contains("ItemCount"))
+                itemCountText = text;
+            else if (text.gameObject.name.Contains("Health"))
+                healthText = text;
+            else if (text.gameObject.name.Contains("Objective"))
+                objectiveText = text;
         }
 
-        // Asignar referencias
-        Text itemCountText = hudTransform.Find("ItemCount")?.GetComponent<Text>();
-        Text healthText = hudTransform.Find("Health")?.GetComponent<Text>();
-        Text objectiveText = hudTransform.Find("Objective")?.GetComponent<Text>();
+        // Si no encontró por nombre, usar el primero, segundo, tercero
+        if (itemCountText == null && allTexts.Length > 0)
+            itemCountText = allTexts[0];
+        if (healthText == null && allTexts.Length > 1)
+            healthText = allTexts[1];
+        if (objectiveText == null && allTexts.Length > 2)
+            objectiveText = allTexts[2];
 
         // Asignar via SerializedObject
         SerializedObject so = new SerializedObject(gameUI);
@@ -50,26 +66,26 @@ public class FixGameUISetup
         if (itemCountText != null)
         {
             so.FindProperty("itemCountText").objectReferenceValue = itemCountText;
-            Debug.Log("itemCountText asignado");
+            Debug.Log($"✓ itemCountText asignado: {itemCountText.gameObject.name}");
         }
         else
-            Debug.LogWarning("itemCountText no encontrado");
+            Debug.LogError("✗ itemCountText no encontrado");
 
         if (healthText != null)
         {
             so.FindProperty("healthText").objectReferenceValue = healthText;
-            Debug.Log("healthText asignado");
+            Debug.Log($"✓ healthText asignado: {healthText.gameObject.name}");
         }
         else
-            Debug.LogWarning("healthText no encontrado");
+            Debug.LogError("✗ healthText no encontrado");
 
         if (objectiveText != null)
         {
             so.FindProperty("objectiveText").objectReferenceValue = objectiveText;
-            Debug.Log("objectiveText asignado");
+            Debug.Log($"✓ objectiveText asignado: {objectiveText.gameObject.name}");
         }
         else
-            Debug.LogWarning("objectiveText no encontrado");
+            Debug.LogError("✗ objectiveText no encontrado");
 
         so.ApplyModifiedProperties();
 
