@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ItemPickup : MonoBehaviour
 {
@@ -13,35 +14,45 @@ public class ItemPickup : MonoBehaviour
     {
         inventory = FindObjectOfType<PlayerInventory>();
         if (inventory == null)
-            Debug.LogError("PlayerInventory no encontrado en la escena");
+            Debug.LogError("PlayerInventory no encontrado");
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (collected) return;
-        if (!other.CompareTag("Player")) return;
-
-        collected = true;
-        CollectItem();
+        if (other.CompareTag("Player"))
+        {
+            collected = true;
+            CollectItem();
+        }
     }
 
     private void CollectItem()
     {
-        if (inventory != null && inventory.AddItem(itemName))
+        if (inventory == null)
         {
-            // Reproducir sonido
+            Debug.LogError("Inventory es null en CollectItem");
+            return;
+        }
+
+        bool added = inventory.AddItem(itemName);
+        Debug.Log($"Item recolectado: {itemName}, Total: {inventory.GetItemCount()}/3");
+
+        if (added)
+        {
             if (pickupSound != null)
                 AudioSource.PlayClipAtPoint(pickupSound, transform.position);
 
-            // Efecto de desaparición
             StartCoroutine(FadeOut());
         }
     }
 
-    private System.Collections.IEnumerator FadeOut()
+    private IEnumerator FadeOut()
     {
         float elapsed = 0f;
         Renderer renderer = GetComponent<Renderer>();
+        if (renderer == null) yield break;
+
         Color originalColor = renderer.material.color;
 
         while (elapsed < destroyDelay)

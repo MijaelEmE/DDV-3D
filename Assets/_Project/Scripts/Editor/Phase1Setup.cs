@@ -14,12 +14,13 @@ public class Phase1Setup
             CreatePlayerInventory();
             CreateGameManager();
             CreateObjectiveManager();
+            CreateRandomItemSpawner();
             CreateSampleItems();
             ConfigurePortal();
             ImproveAltars();
 
             EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-            Debug.Log("✅ Setup Fase 1 completado. Verifica la Hierarchy.");
+            Debug.Log("Setup Fase 1 completado. Items posicionados aleatoriamente.");
         }
         catch (System.Exception ex)
         {
@@ -158,8 +159,18 @@ public class Phase1Setup
             if (altar.GetComponent<AltarActivationEffects>() == null)
             {
                 AltarActivationEffects effects = altar.gameObject.AddComponent<AltarActivationEffects>();
-                Debug.Log($"✅ Altar mejorado: {altar.gameObject.name}");
+                Debug.Log($"Altar mejorado: {altar.gameObject.name}");
             }
         }
+    }
+
+    private static void CreateRandomItemSpawner()
+    {
+        if (GameObject.Find("RandomItemSpawner") != null)
+            return;
+
+        GameObject spawnerObj = new GameObject("RandomItemSpawner");
+        RandomItemSpawner spawner = spawnerObj.AddComponent<RandomItemSpawner>();
+        Debug.Log("RandomItemSpawner creado");
     }
 }
