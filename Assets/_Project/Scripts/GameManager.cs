@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject defeatPanel;
     [SerializeField] private AudioClip victorySound;
     [SerializeField] private AudioClip defeatSound;
+    [SerializeField] private MonoBehaviour[] gameplayBehaviours;
 
     private GameState currentState = GameState.Menu;
     private PlayerInventory inventory;
@@ -22,7 +23,11 @@ public class GameManager : MonoBehaviour
         if (instance == null)
             instance = this;
         else
+        {
             Destroy(gameObject);
+            return;
+        }
+        ApplyPlaybackState();
     }
 
     private void Start()
@@ -30,13 +35,13 @@ public class GameManager : MonoBehaviour
         inventory = FindFirstObjectByType<PlayerInventory>();
         objectiveManager = FindFirstObjectByType<ObjectiveManager>();
 
-        StartGame();
+        ApplyPlaybackState();
     }
 
     public void StartGame()
     {
+        if (currentState != GameState.Menu) return;
         SetGameState(GameState.Playing);
-        Time.timeScale = 1f;
     }
 
     public void PauseGame()
@@ -66,11 +71,11 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("VICTORIA! Escapaste del templo!");
 
-        Invoke(nameof(RestartGame), 5f);
     }
 
     public void Defeat()
     {
+        if (!IsGameActive()) return;
         SetGameState(GameState.Defeat);
 
         if (defeatPanel != null)
@@ -81,8 +86,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("DERROTA! El guardian te capturo.");
 
-        // Cambia 5f por el tiempo deseado en segundos (ej. 1.5f)
-        Invoke(nameof(RestartGame), 1.5f); 
     }
 
     public void RestartGame()
@@ -98,7 +101,28 @@ public class GameManager : MonoBehaviour
         if (currentState == newState) return;
 
         currentState = newState;
+        ApplyPlaybackState();
         onGameStateChanged?.Invoke(currentState);
+    }
+
+    private void ApplyPlaybackState()
+    {
+        bool playing = IsGameActive();
+        Time.timeScale = playing ? 1f : 0f;
+        if (gameplayBehaviours != null)
+            foreach (MonoBehaviour behaviour in gameplayBehaviours)
+                if (behaviour != null) behaviour.enabled = playing;
+        Cursor.lockState = playing ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !playing;
+    }
+
+    private void OnDestroy()
+    {
+        if (instance != this) return;
+        instance = null;
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public GameState GetGameState() => currentState;

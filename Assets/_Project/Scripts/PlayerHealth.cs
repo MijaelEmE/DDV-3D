@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage, Vector3 sourcePosition)
     {
+        if (gameManager == null || !gameManager.IsGameActive()) return;
+        if (damage <= 0) return;
         if (currentHealth <= 0) return;
 
         currentHealth -= damage;

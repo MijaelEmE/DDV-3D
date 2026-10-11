@@ -3,68 +3,52 @@ using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
+    [SerializeField] private GameObject startPanel;
     [SerializeField] private GameObject victoryPanel;
     [SerializeField] private GameObject defeatPanel;
+    [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
-    [SerializeField] private Text victoryText;
-    [SerializeField] private Text defeatText;
+    [SerializeField] private Button defeatRestartButton;
+    [SerializeField] private Canvas[] gameplayCanvases;
 
     private GameManager gameManager;
 
     private void Start()
     {
         gameManager = FindFirstObjectByType<GameManager>();
-
-        if (gameManager != null)
-            gameManager.onGameStateChanged += OnGameStateChanged;
-
-        if (restartButton != null)
-            restartButton.onClick.AddListener(RestartGame);
-
-        HideAllPanels();
+        if (gameManager == null) return;
+        gameManager.onGameStateChanged += OnGameStateChanged;
+        if (startButton != null) startButton.onClick.AddListener(StartGame);
+        if (restartButton != null) restartButton.onClick.AddListener(RestartGame);
+        if (defeatRestartButton != null) defeatRestartButton.onClick.AddListener(RestartGame);
+        OnGameStateChanged(gameManager.GetGameState());
     }
 
     private void OnGameStateChanged(GameManager.GameState state)
     {
-        switch (state)
-        {
-            case GameManager.GameState.Victory:
-                ShowVictoryPanel();
-                break;
-            case GameManager.GameState.Defeat:
-                ShowDefeatPanel();
-                break;
-            default:
-                HideAllPanels();
-                break;
-        }
+        if (startPanel != null) startPanel.SetActive(state == GameManager.GameState.Menu);
+        if (victoryPanel != null) victoryPanel.SetActive(state == GameManager.GameState.Victory);
+        if (defeatPanel != null) defeatPanel.SetActive(state == GameManager.GameState.Defeat);
+        if (gameplayCanvases != null)
+            foreach (Canvas canvas in gameplayCanvases)
+                if (canvas != null) canvas.enabled = state == GameManager.GameState.Playing;
     }
 
-    private void ShowVictoryPanel()
+    private void StartGame()
     {
-        HideAllPanels();
-        if (victoryPanel != null)
-            victoryPanel.SetActive(true);
-    }
-
-    private void ShowDefeatPanel()
-    {
-        HideAllPanels();
-        if (defeatPanel != null)
-            defeatPanel.SetActive(true);
-    }
-
-    private void HideAllPanels()
-    {
-        if (victoryPanel != null)
-            victoryPanel.SetActive(false);
-        if (defeatPanel != null)
-            defeatPanel.SetActive(false);
+        if (gameManager != null) gameManager.StartGame();
     }
 
     private void RestartGame()
     {
-        if (gameManager != null)
-            gameManager.RestartGame();
+        if (gameManager != null) gameManager.RestartGame();
+    }
+
+    private void OnDestroy()
+    {
+        if (gameManager != null) gameManager.onGameStateChanged -= OnGameStateChanged;
+        if (startButton != null) startButton.onClick.RemoveListener(StartGame);
+        if (restartButton != null) restartButton.onClick.RemoveListener(RestartGame);
+        if (defeatRestartButton != null) defeatRestartButton.onClick.RemoveListener(RestartGame);
     }
 }

@@ -20,6 +20,8 @@ public class ItemPickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (collected) return;
+        GameManager manager = FindFirstObjectByType<GameManager>();
+        if (manager == null || !manager.IsGameActive()) return;
         if (other.CompareTag("Player"))
         {
             collected = true;
