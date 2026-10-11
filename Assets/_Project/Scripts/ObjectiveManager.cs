@@ -21,6 +21,8 @@ public class ObjectiveManager : MonoBehaviour
 
         if (portalObject != null)
             portalObject.SetActive(false);
+        if (portalLight != null)
+            portalLight.enabled = false;
     }
 
     private void CheckObjective(int itemCount)
@@ -32,6 +34,7 @@ public class ObjectiveManager : MonoBehaviour
     private void ActivatePortal()
     {
         portalActive = true;
+        objectiveText = "Portal abierto: dirígete hacia él para escapar";
 
         if (portalObject != null)
             portalObject.SetActive(true);
@@ -48,4 +51,10 @@ public class ObjectiveManager : MonoBehaviour
 
     public bool IsPortalActive() => portalActive;
     public string GetObjectiveText() => objectiveText;
+
+    private void OnDestroy()
+    {
+        if (inventory != null)
+            inventory.onItemCollected -= CheckObjective;
+    }
 }

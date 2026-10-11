@@ -17,6 +17,8 @@ public class GameUI : MonoBehaviour
         inventory = FindFirstObjectByType<PlayerInventory>();
         playerHealth = FindFirstObjectByType<PlayerHealth>();
         objectiveManager = FindFirstObjectByType<ObjectiveManager>();
+        if (objectiveManager != null)
+            objectiveManager.onObjectiveComplete += UpdateObjectiveText;
 
         if (inventory != null)
         {
@@ -84,5 +86,15 @@ public class GameUI : MonoBehaviour
         {
             objectiveText.text = objectiveManager.GetObjectiveText();
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (inventory != null)
+            inventory.onItemCollected -= UpdateItemCount;
+        if (playerHealth != null)
+            playerHealth.onHealthChanged -= UpdateHealth;
+        if (objectiveManager != null)
+            objectiveManager.onObjectiveComplete -= UpdateObjectiveText;
     }
 }

@@ -5610,8 +5610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fc745b710e44d5cbf8dffb5f98935d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portalObject: {fileID: 0}
-  portalLight: {fileID: 0}
+  portalObject: {fileID: 1934185570}
+  portalLight: {fileID: 1934185573}
   portalActivationSound: {fileID: 8300000, guid: 99674df7224df42d3a84bc5041cbcfc4, type: 3}
   objectiveText: Encuentra 3 objetos antiguos
 --- !u!4 &392120579
@@ -10224,7 +10224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1934185571
 MonoBehaviour:
   m_ObjectHideFlags: 0

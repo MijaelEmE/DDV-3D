@@ -53,6 +53,9 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        if (!IsGameActive()) return;
+        if (inventory == null || !inventory.HasAllItems()) return;
+        if (objectiveManager == null || !objectiveManager.IsPortalActive()) return;
         SetGameState(GameState.Victory);
 
         if (victoryPanel != null)
