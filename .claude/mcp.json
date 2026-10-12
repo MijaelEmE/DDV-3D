@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "unity-project": {
+      "command": "node",
+      "args": ["${workspaceFolder}/.claude/unity-mcp-server.js"],
+      "disabled": false,
+      "env": {
+        "UNITY_PROJECT_PATH": "${workspaceFolder}",
+        "ASSETS_PATH": "${workspaceFolder}/Assets/_Project"
+      }
+    }
+  }
+}
